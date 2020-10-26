@@ -40,11 +40,9 @@ internal fun createOkHttpClient(context: Context, appVersionCode: Int): OkHttpCl
             addInterceptor(UserAgentInterceptor(appVersionCode))
             if (Timber.forest().isNotEmpty()) {
                 addInterceptor(
-                    HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-                        override fun log(message: String) {
-                            Timber.tag("OkHttpClient").d(message)
-                        }
-                    }).setLevel(HttpLoggingInterceptor.Level.BODY)
+                    HttpLoggingInterceptor { message ->
+                        Timber.tag("OkHttpClient").d(message)
+                    }.setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
             }
             addInterceptor(CorruptedCacheInterceptor(cache))

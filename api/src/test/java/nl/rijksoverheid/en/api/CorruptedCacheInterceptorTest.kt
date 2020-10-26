@@ -128,7 +128,7 @@ class CorruptedCacheInterceptorTest {
                 init(null, arrayOf(trustManager), null)
             }.socketFactory,
             trustManager
-        ).hostnameVerifier(HostnameVerifier { _, _ -> true })
+        ).hostnameVerifier { _, _ -> true }
     }
 
     private fun createCorruptedCacheEntry(url: String) {
